@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----- Fonts (Space Grotesk · Inter · IBM Plex Mono) ----- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap");
+
+:root {
+    --accent: #3b82f6;
+    --cyan: #06b6d4;
+    --highlight: #7dd3fc;
+    --bg: #050505;
+    --surface: #101010;
+    --text: #f8fafc;
+    --muted: #a1a1aa;
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #050505;
+    color: #f8fafc;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: #050505; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ----- Cursor: hide native on fine pointers (custom glow renders instead) ----- */
+@media (pointer: fine) {
+    body { cursor: none; }
+    a, button, input, textarea, [data-cursor-hover] { cursor: none; }
+}
+
+/* ----- Display heading ----- */
+.display {
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    font-weight: 700;
+}
+
+.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+/* ----- Glass surface ----- */
+.glass {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+}
+.glass-strong {
+    background: rgba(16, 16, 16, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(28px) saturate(150%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+}
+
+/* Eyebrow strip */
+.eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #a1a1aa;
+}
+.eyebrow .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 10px;
+    vertical-align: 2px;
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* Subtle scan line texture */
+.scanline::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(255, 255, 255, 0.012) 3px,
+        rgba(255, 255, 255, 0.012) 4px
+    );
+    mix-blend-mode: overlay;
+}
+
+/* Animated grid floor */
+.grid-floor {
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 90%);
+}
+
+/* Cursor glow (custom) */
+.cursor-glow {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%);
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+}
+.cursor-glow.hover {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.45) 0%, rgba(125, 211, 252, 0.18) 40%, transparent 70%);
+}
+.cursor-dot {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #F8FAFC;
+    transform: translate(-50%, -50%);
+}
+
+/* Reset shadcn defaults we don't want */
+input, textarea, button { font-family: inherit; }
+
+/* Marquee track */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+}
+
+/* Anchor underline */
+.link-underline { position: relative; display: inline-block; }
+.link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    height: 1px; width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* Glow text */
+.glow-blue { text-shadow: 0 0 24px rgba(59, 130, 246, 0.55); }
+.glow-cyan { text-shadow: 0 0 24px rgba(6, 182, 212, 0.5); }
+
+/* Magnetic button base */
+.magnetic { will-change: transform; transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Anchor offset for any remaining anchored sections */
+section[id] { scroll-margin-top: 80px; }
+
+/* Scroll-snap: 1 scroll = 1 section (desktop only, fine pointers) */
+@media (min-width: 1024px) and (pointer: fine) {
+    html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
+    section[id] {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+    /* skip snap inside modal overlays */
+    [data-testid$="-modal"] section[id],
+    [data-testid$="-room"] section[id] {
+        scroll-snap-align: none;
+    }
+}
+
+/* Iridescent border (used on cards) */
+.iridescent {
+    position: relative;
+}
+.iridescent::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(6,182,212,0.3), rgba(125,211,252,0.4));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* ---- from App.css ---- */
+.App {
+    min-height: 100vh;
+    background: #050505;
+    color: #F8FAFC;
+}

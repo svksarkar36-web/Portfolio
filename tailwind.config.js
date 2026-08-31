@@ -1,0 +1,90 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    darkMode: ["class"],
+    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    theme: {
+        extend: {
+            colors: {
+                ink: {
+                    900: "#050505",
+                    800: "#0a0a0a",
+                    700: "#101010",
+                    600: "#161616",
+                    500: "#1f1f1f",
+                },
+                surface: "#101010",
+                accent: {
+                    DEFAULT: "#3B82F6",
+                    hover: "#2563EB",
+                    soft: "rgba(59,130,246,0.18)",
+                    glow: "rgba(59,130,246,0.45)",
+                },
+                cyan: {
+                    DEFAULT: "#06B6D4",
+                    soft: "rgba(6,182,212,0.15)",
+                    glow: "rgba(6,182,212,0.4)",
+                },
+                highlight: "#7DD3FC",
+                text: {
+                    DEFAULT: "#F8FAFC",
+                    muted: "#A1A1AA",
+                    dim: "#71717A",
+                },
+                success: "#22C55E",
+                warning: "#F59E0B",
+                border: "rgba(255,255,255,0.08)",
+                input: "rgba(255,255,255,0.10)",
+                ring: "#3B82F6",
+                background: "#050505",
+                foreground: "#F8FAFC",
+                card: { DEFAULT: "rgba(255,255,255,0.05)", foreground: "#F8FAFC" },
+                popover: { DEFAULT: "#0a0a0a", foreground: "#F8FAFC" },
+                primary: { DEFAULT: "#3B82F6", foreground: "#050505" },
+                secondary: { DEFAULT: "#101010", foreground: "#F8FAFC" },
+                muted: { DEFAULT: "#101010", foreground: "#A1A1AA" },
+                destructive: { DEFAULT: "#ef4444", foreground: "#ffffff" },
+                // legacy alias so older components keep compiling
+                signal: {
+                    DEFAULT: "#3B82F6",
+                    hover: "#2563EB",
+                    soft: "rgba(59,130,246,0.15)",
+                    glow: "rgba(59,130,246,0.4)",
+                },
+                bone: {
+                    100: "#F8FAFC",
+                    200: "#E2E8F0",
+                    300: "#A1A1AA",
+                    400: "#71717A",
+                    500: "#52525B",
+                },
+            },
+            fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+                display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+                mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+            },
+            borderRadius: {
+                lg: '20px',
+                md: '14px',
+                sm: '10px',
+            },
+            keyframes: {
+                'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
+                'accordion-up': { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } },
+                marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+                'pulse-dot': { '0%, 100%': { opacity: '1', transform: 'scale(1)' }, '50%': { opacity: '.55', transform: 'scale(.85)' } },
+                'float-y': { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+                shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+            },
+            animation: {
+                'accordion-down': 'accordion-down 0.2s ease-out',
+                'accordion-up': 'accordion-up 0.2s ease-out',
+                marquee: 'marquee 40s linear infinite',
+                'pulse-dot': 'pulse-dot 1.6s ease-in-out infinite',
+                'float-y': 'float-y 6s ease-in-out infinite',
+                shimmer: 'shimmer 8s linear infinite',
+            },
+        },
+    },
+    plugins: [require("tailwindcss-animate")],
+};
